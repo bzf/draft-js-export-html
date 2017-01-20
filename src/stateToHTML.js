@@ -418,6 +418,18 @@ function encodeAttr(text: string): string {
     .split('"').join('&quot;');
 }
 
-export default function stateToHTML(content: ContentState, options: ?Options): string {
+
+function stateToHTML(content: ContentState, options: ?Options): string {
   return new MarkupGenerator(content, options).generate();
 }
+
+function blockToHTML(contentState: ContentState, options: ?Options, block: ContentBlock): string {
+  return new MarkupGenerator(contentState, options).renderBlockContent(block);
+}
+
+// export blockToHTML = blockToHTML;
+
+export default {
+  stateToHTML,
+  blockToHTML,
+};
