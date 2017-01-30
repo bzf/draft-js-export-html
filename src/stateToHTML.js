@@ -220,7 +220,7 @@ class MarkupGenerator {
       nextBlock &&
       nextBlock.getDepth() === block.getDepth() + 1
     ) {
-      this.output.push(`\n`);
+      this.output.push('\n');
       // This is a litle hacky: temporarily stash our current wrapperTag and
       // render child list(s).
       let thisWrapperTag = this.wrapperTag;
@@ -419,17 +419,10 @@ function encodeAttr(text: string): string {
 }
 
 
-function stateToHTML(content: ContentState, options: ?Options): string {
+export default function(content: ContentState, options: ?Options): string {
   return new MarkupGenerator(content, options).generate();
 }
 
-function blockToHTML(contentState: ContentState, options: ?Options, block: ContentBlock): string {
+export function blockToHTML(contentState: ContentState, options: ?Options, block: ContentBlock): string {
   return new MarkupGenerator(contentState, options).renderBlockContent(block);
 }
-
-// export blockToHTML = blockToHTML;
-
-export default {
-  stateToHTML,
-  blockToHTML,
-};
