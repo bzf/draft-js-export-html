@@ -1,4 +1,4 @@
-import {stateToHtml, blockToHtml} from './stateToHTML';
+import {stateToHTML, blockToHTML} from './stateToHTML';
 
-export default stateToHtml;
-export {blockToHtml};
+export default stateToHTML;
+export {blockToHTML};

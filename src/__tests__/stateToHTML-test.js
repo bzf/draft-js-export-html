@@ -1,7 +1,7 @@
 /* @flow */
 const {describe, it} = global;
 import expect from 'expect';
-import {convertFromRaw} from 'draft-js';
+import {convertFromRaw, convertFromHTML} from 'draft-js';
 import stateToHTML, { blockToHTML } from '../stateToHTML';
 import fs from 'fs';
 import {join} from 'path';
@@ -109,5 +109,22 @@ describe('stateToHTML', () => {
     expect(stateToHTML(contentState2, options)).toBe(
       '<h1>Hello <em>world</em>.</h1>'
     );
+  });
+});
+
+describe('blockToHTML', () => {
+  it('should convert the given block to HTML', () => {
+    let contentState = convertFromRaw(
+      {"entityMap":{},"blocks":[{"key":"dn025","text":"Hello world","type":"section","depth":0,"inlineStyleRanges":[{"offset":6,"length":5,"style":"ITALIC"}],"entityRanges":[]}]} // eslint-disable-line
+    );
+
+    const blocks = contentState.getBlocksAsArray();
+    const htmlBlocks = blocks.map((block) => {
+      return blockToHTML(contentState, null, block);
+    });
+
+    expect(htmlBlocks).toEqual([
+      'Hello <em>world</em>',
+    ]);
   });
 });
